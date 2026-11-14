@@ -41,13 +41,27 @@ This project exists for **learning**: trying new technologies and libraries, and
 - Put the MUI theme and `CssBaseline` at the app root and keep design tokens (colors, typography, spacing) in the theme.
 - Match the style of the surrounding code: no semicolons, single quotes, 2-space indent.
 
+## Git and GitHub
+
+This is a **personal** project, not an office one. The machine's global git identity and the `gh` login are the office accounts, so never use them here.
+
+- Remote: `origin` is `https://himan16@github.com/himan16/Dev-Tinder-Web.git` (personal account `himan16`). The `himan16@` in the URL makes the macOS keychain use a separate credential from the office one.
+- Commit email: this repo's local `user.email` is `singhalhimanshu813@gmail.com`. Don't change it and don't commit with the office email.
+- Pushing needs a `himan16` fine-grained personal access token stored in the keychain, and `gh` is logged in as the office account. So don't use `gh` for this repo. Pushing may need to be done by the user in their own terminal.
+- Branch: `main`, tracking `origin/main`. Don't force-push.
+- Commit messages start with `himan-devTinder-Web-<n>:` and a space, where `<n>` is the commit's serial number in this repo (the commit count after it, so `git rev-list --count HEAD` + 1 before committing). Commit 3 is the first to use the prefix, so commits 1 and 2 don't have it.
+- Commit messages end with the `Co-Authored-By` line from the session's attribution instructions.
+
 ## Status
 
 - Vite + React scaffolded. MUI v9 installed, with the theme in `src/theme.js` and `ThemeProvider` + `CssBaseline` in `src/main.jsx`.
 - Basic `NavBar` and `Footer` in `src/components/`, wrapped by `AppLayout`.
 - Routes: `/login` (public); `/profile`, `/feeds`, `/connections` behind `RequireAuth`, which redirects to `/login`. Pages are heading-only placeholders in `src/pages/`.
-- Auth is a placeholder: `AuthProvider` holds a hard-coded `isLoggedIn = false`. Backend auth is a JWT in a `token` cookie (7 days, not set as httpOnly), set by `POST /login`; `GET /profile/view` can serve as the "who am I" check.
+- Auth is a placeholder: `AuthProvider` holds a plain `isLoggedIn` state. Backend auth is a JWT in a `token` cookie (7 days, not set as httpOnly), set by `POST /login`; `GET /profile/view` can serve as the "who am I" check.
 - The backend has no CORS middleware and runs on port 7777. Needs CORS with credentials (or a Vite dev proxy) before the frontend can call it.
 - Login page (`src/pages/Login.jsx`): MUI form (email, password) calling `POST /login` through the `useLogin` hook (`src/hooks/useLogin.js`, a `useMutation` wrapper; `src/hooks/` holds the API call hooks next to `useAuth`), with the fetch in `src/services/login.js` (`credentials: 'include'`). `src/services/` holds all API call files and `src/constant.js` holds global constants like `BASE_URL` (`http://localhost:7777`). `QueryClientProvider` is in `src/main.jsx`. On success it sets `isLoggedIn` and navigates to `/feeds`. Expected to fail with a CORS error until the backend or a Vite proxy is set up.
-- `AuthProvider` currently starts with `isLoggedIn = true` (temporary, to view protected pages).
+- `AuthProvider` currently starts with `isLoggedIn = true` (temporary, to view protected pages), so the `/login` redirect isn't exercised yet.
+- The theme font is set to Lab Grotesque (a commercial font), but no font files are loaded yet, so it falls back to Helvetica or Arial.
+- `public/` is empty, so the `favicon.svg` link in `index.html` 404s.
+- Code is on GitHub at `himan16/Dev-Tinder-Web`.
 - Next: fix CORS, then replace the placeholder auth state with a real `GET /profile/view` check.
