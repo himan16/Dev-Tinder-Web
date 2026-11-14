@@ -1,30 +1,28 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router'
+import { Navigate } from 'react-router'
 import Alert from '@mui/material/Alert'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Paper from '@mui/material/Paper'
 import TextField from '@mui/material/TextField'
 import Typography from '@mui/material/Typography'
-import useAuth from '../hooks/useAuth.js'
+import useCurrentUser from '../hooks/useCurrentUser.js'
 import useLogin from '../hooks/useLogin.js'
 
 function Login() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const { setIsLoggedIn } = useAuth()
-  const navigate = useNavigate()
-
-  const loginMutation = useLogin({
-    onSuccess: () => {
-      setIsLoggedIn(true)
-      navigate('/feeds', { replace: true })
-    },
-  })
+  const { data: user } = useCurrentUser()
+  const loginMutation = useLogin()
 
   const handleSubmit = (event) => {
     event.preventDefault()
     loginMutation.mutate({ email, password })
+  }
+
+  // A successful login puts the user in the cache, which lands here too.
+  if (user) {
+    return <Navigate to="/feeds" replace />
   }
 
   return (

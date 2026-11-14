@@ -1,5 +1,4 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router'
-import AuthProvider from './context/AuthProvider.jsx'
 import RequireAuth from './components/RequireAuth.jsx'
 import AppLayout from './components/AppLayout.jsx'
 import Login from './pages/Login.jsx'
@@ -10,20 +9,18 @@ import Connections from './pages/Connections.jsx'
 function App() {
   return (
     <BrowserRouter>
-      <AuthProvider>
-        <Routes>
-          <Route path="/login" element={<Login />} />
-          {/* Pathless layout routes: guard first, then wrap in NavBar / Footer. */}
-          <Route element={<RequireAuth />}>
-            <Route element={<AppLayout />}>
-              <Route path="/profile" element={<Profile />} />
-              <Route path="/feeds" element={<Feeds />} />
-              <Route path="/connections" element={<Connections />} />
-            </Route>
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        {/* Pathless layout routes: guard first, then wrap in NavBar / Footer. */}
+        <Route element={<RequireAuth />}>
+          <Route element={<AppLayout />}>
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/feeds" element={<Feeds />} />
+            <Route path="/connections" element={<Connections />} />
           </Route>
-          <Route path="*" element={<Navigate to="/feeds" replace />} />
-        </Routes>
-      </AuthProvider>
+        </Route>
+        <Route path="*" element={<Navigate to="/feeds" replace />} />
+      </Routes>
     </BrowserRouter>
   )
 }
