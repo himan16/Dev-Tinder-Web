@@ -1,8 +1,9 @@
 import { useState } from 'react'
-import { Navigate } from 'react-router'
+import { Link as RouterLink, Navigate } from 'react-router'
 import Alert from '@mui/material/Alert'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
+import Link from '@mui/material/Link'
 import Paper from '@mui/material/Paper'
 import TextField from '@mui/material/TextField'
 import Typography from '@mui/material/Typography'
@@ -53,6 +54,12 @@ function Login() {
         <Button type="submit" variant="contained" disabled={loginMutation.isPending}>
           {loginMutation.isPending ? 'Logging in…' : 'Login'}
         </Button>
+        <Typography variant="body2" align="center">
+          New here?{' '}
+          <Link component={RouterLink} to="/signup">
+            Sign up
+          </Link>
+        </Typography>
       </Paper>
     </Box>
   )
