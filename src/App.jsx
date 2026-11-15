@@ -4,6 +4,7 @@ import AppLayout from './components/AppLayout.jsx'
 import Login from './pages/Login.jsx'
 import Signup from './pages/Signup.jsx'
 import Profile from './pages/Profile.jsx'
+import Settings from './pages/Settings.jsx'
 import Feeds from './pages/Feeds.jsx'
 import Connections from './pages/Connections.jsx'
 
@@ -17,6 +18,7 @@ function App() {
         <Route element={<RequireAuth />}>
           <Route element={<AppLayout />}>
             <Route path="/profile" element={<Profile />} />
+            <Route path="/settings" element={<Settings />} />
             <Route path="/feeds" element={<Feeds />} />
             <Route path="/connections" element={<Connections />} />
           </Route>

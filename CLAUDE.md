@@ -57,11 +57,11 @@ This is a **personal** project, not an office one. The machine's global git iden
 
 - Vite + React scaffolded. MUI v9 installed, with the theme in `src/theme.js` and `ThemeProvider` + `CssBaseline` in `src/main.jsx`.
 - Basic `NavBar` and `Footer` in `src/components/`, wrapped by `AppLayout`.
-- Routes: `/login` (public); `/profile`, `/feeds`, `/connections` behind `RequireAuth`, which redirects to `/login`. Pages are heading-only placeholders in `src/pages/`.
+- Routes: `/login` and `/signup` (public); `/profile`, `/settings`, `/feeds`, `/connections` behind `RequireAuth`, which redirects to `/login`. Pages are heading-only placeholders in `src/pages/`.
 - Auth: the logged-in user lives in the TanStack Query cache under `LOGGED_IN_USER_QUERY_KEY` (`['devTinder', 'loggedInUser']`, in `src/constant.js`); there is no auth Context and no `isLoggedIn` flag (logged in = a user exists). `useCurrentUser` (`GET /profile/view`, `staleTime` 5 min, `retry: false`) answers "who am I?" on load; `getProfile` returns `null` on 401 and throws on real failures. `RequireAuth` has three states: loading spinner, error, user (render `Outlet`) or no user (redirect to `/login`). Backend auth is a JWT in a `token` cookie set by `POST /login`.
 - `useLogin` and `useSignup` seed `['devTinder', 'loggedInUser']` with `data.user` on success. `useLogout` calls `POST /logout`, removes the other cached queries and sets `['devTinder', 'loggedInUser']` to `null`. A global 401 rule in `src/queryClient.js` (`QueryCache` and `MutationCache` `onError`) sets `['devTinder', 'loggedInUser']` to `null`, so an expired cookie sends the user to `/login`.
 - API layering: `src/services/` (plain fetch via `request.js`, which throws `ApiError` with a `status`) → `src/hooks/` (TanStack Query wrappers) → pages. `src/constant.js` holds global constants like `BASE_URL` (`http://localhost:7777`).
-- Login page (`src/pages/Login.jsx`): MUI form (email, password) using `useLogin`; it redirects to `/feeds` as soon as a user is in the cache. `NavBar` has a Logout button using `useLogout`.
+- Login page (`src/pages/Login.jsx`): MUI form (email, password) using `useLogin`; it redirects to `/feeds` as soon as a user is in the cache. `NavBar` shows `UserMenu` (`src/components/UserMenu.jsx`): the avatar opens an MUI `Menu` with Profile (`/profile`), Settings (`/settings`, a heading-only placeholder) and Logout (`useLogout`).
 - CORS: the backend has a manual CORS middleware that allows `http://localhost:5173` with credentials, so no Vite proxy is needed.
 - The theme font is set to Lab Grotesque (a commercial font), but no font files are loaded yet, so it falls back to Helvetica or Arial.
 - `public/` is empty, so the `favicon.svg` link in `index.html` 404s.
