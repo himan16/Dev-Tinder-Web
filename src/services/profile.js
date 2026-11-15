@@ -12,3 +12,8 @@ export async function getProfile() {
     throw error
   }
 }
+
+// Sends only the fields that changed or were filled in. Resolves to `{ message, updatedUser }`.
+export function updateProfile(fields) {
+  return request('/profile/edit', { method: 'PUT', body: fields })
+}
