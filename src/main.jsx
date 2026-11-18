@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client'
 import { ThemeProvider } from '@mui/material/styles'
 import CssBaseline from '@mui/material/CssBaseline'
 import { QueryClientProvider } from '@tanstack/react-query'
+import NotificationProvider from './context/NotificationProvider.jsx'
 import queryClient from './queryClient.js'
 import theme from './theme.js'
 import App from './App.jsx'
@@ -12,7 +13,9 @@ createRoot(document.getElementById('root')).render(
     <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <App />
+        <NotificationProvider>
+          <App />
+        </NotificationProvider>
       </ThemeProvider>
     </QueryClientProvider>
   </StrictMode>,

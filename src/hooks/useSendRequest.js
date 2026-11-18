@@ -11,7 +11,7 @@ function useSendRequest() {
     // Optimistic update: the card leaves the deck at once, before the server answers.
     onMutate: async ({ userId }) => {
       // Stop a running refetch so it can't bring the card back.
-      await queryClient.cancelQueries({ queryKey: FEED_QUERY_KEY });
+      await queryClient.cancelQueries({ queryKey: FEED_QUERY_KEY })
       const swipedUser = queryClient
         .getQueryData(FEED_QUERY_KEY)
         ?.users.find((user) => user._id === userId)

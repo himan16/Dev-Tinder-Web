@@ -11,3 +11,6 @@ export const SEND_REQUEST_MUTATION_KEY = ['devTinder', 'sendRequest']
 export const FEED_PAGE_SIZE = 5
 // Refetch the next batch in the background once this many cards (or fewer) are left.
 export const FEED_PREFETCH_THRESHOLD = 3
+
+export const RECEIVED_REQUESTS_QUERY_KEY = ['devTinder', 'receivedRequests']
+export const CONNECTIONS_QUERY_KEY = ['devTinder', 'connections']
