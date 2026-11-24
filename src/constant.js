@@ -1,4 +1,4 @@
-export const BASE_URL = 'http://15.134.202.131'
+export const BASE_URL = 'http://15.134.202.131:7777'
 
 // TanStack Query cache key for the logged-in user. `null` means logged out.
 export const LOGGED_IN_USER_QUERY_KEY = ['devTinder', 'loggedInUser']
