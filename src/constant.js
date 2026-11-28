@@ -1,4 +1,6 @@
-export const BASE_URL = 'http://15.134.202.131:7777'
+// Relative on purpose: the API is reached through the same host that serves the app, under /devTinder.
+// In production nginx forwards it to the backend; `npm run dev` does the same through the Vite proxy.
+export const BASE_URL = '/devTinder'
 
 // TanStack Query cache key for the logged-in user. `null` means logged out.
 export const LOGGED_IN_USER_QUERY_KEY = ['devTinder', 'loggedInUser']
